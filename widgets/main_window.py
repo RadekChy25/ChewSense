@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(897, 649)
+        MainWindow.resize(1920, 180)
         MainWindow.setStyleSheet("background-color: rgb(255, 255, 255);")
         QtCore.QDir.addSearchPath('icons', './icons')
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
