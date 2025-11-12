@@ -1,16 +1,14 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel
-from PyQt6.QtCore import Qt
 import sys
+from PyQt6 import QtWidgets
+from widgets.main_window import Ui_MainWindow
 
 def main():
-    app = QApplication(sys.argv)
-    window = QMainWindow()
-    label = QLabel("Hello, PyQt6!", parent=window)
-
-    label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-    window.setCentralWidget(label)
-    window.setWindowTitle("Simple PyQt6 App")
-    window.show()
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec())
 
     app.exec()
 
