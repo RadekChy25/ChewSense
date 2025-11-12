@@ -1,22 +1,38 @@
-# Use Ubuntu as base image
-FROM ubuntu:latest
+FROM python:3.12-slim
 
 # Set working directory inside the container
 WORKDIR /app
 
-# Install all packages in a single layer for better caching
 RUN apt-get update && apt-get install -y \
-    python3 \
-    python3-pip \
-    python3-pyqt6 \
     ffmpeg \
+    libsm6 \
+    libxext6 \
+    libegl1 \
     libxcb-cursor0 \
-    libxcb-xinerama0 \
-    libxkbcommon-x11-dev \
+    libx11-xcb1 \
+    libxcb1 \
+    libxcb-keysyms1 \
+    libxcb-image0 \
+    libxcb-shm0 \
+    libxcb-icccm4 \
+    libxcb-sync1 \
+    libxcb-xfixes0 \
+    libxcb-shape0 \
+    libxcb-randr0 \
+    libxcb-render-util0 \
+    libxcb-render0 \
+    libxrender1 \
+    libxkbcommon-x11-0 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy everything into the container
 COPY . .
 
-# Run your application when the container starts
-CMD ["python3", "main.py"]
+# Activate virtual environment
+ENV PATH=".venv/bin:$PATH"
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Run your application (don’t run during build!)
+CMD ["python", "main.py"]
