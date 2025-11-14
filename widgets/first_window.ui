@@ -17,7 +17,7 @@
    <item>
     <layout class="QGridLayout" name="gridLayout">
      <item row="1" column="3">
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="add_user_btn">
        <property name="styleSheet">
         <string notr="true">border:0;</string>
        </property>
@@ -47,7 +47,7 @@
       </spacer>
      </item>
      <item row="1" column="2">
-      <widget class="QComboBox" name="comboBox">
+      <widget class="QComboBox" name="user_list">
        <property name="minimumSize">
         <size>
          <width>484</width>
@@ -63,7 +63,7 @@
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="QComboBox" name="comboBox_2">
+      <widget class="QComboBox" name="session_list">
        <property name="minimumSize">
         <size>
          <width>484</width>
@@ -75,9 +75,6 @@
        </property>
        <property name="currentText">
         <string>SELECT A SESSION</string>
-       </property>
-       <property name="sizeAdjustPolicy">
-        <enum>QComboBox::AdjustToContents</enum>
        </property>
       </widget>
      </item>
@@ -95,7 +92,7 @@
       </spacer>
      </item>
      <item row="1" column="1">
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="user_icon">
        <property name="pixmap">
         <pixmap resource="../resources.qrc">:/icons/icons/user_icon.png</pixmap>
        </property>
@@ -118,7 +115,7 @@
       </spacer>
      </item>
      <item row="2" column="3">
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="add_session_btn">
        <property name="styleSheet">
         <string notr="true">border:0;</string>
        </property>
@@ -148,7 +145,7 @@
       </spacer>
      </item>
      <item row="2" column="1">
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="session_icon">
        <property name="pixmap">
         <pixmap resource="../resources.qrc">:/icons/icons/pen_icon.png</pixmap>
        </property>

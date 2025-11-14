@@ -14,7 +14,7 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1920, 180)
         MainWindow.setStyleSheet("background-color: rgb(255, 255, 255);")
-        QtCore.QDir.addSearchPath('icons', './icons')
+        QtCore.QDir.addSearchPath('icons', './widgets/icons')
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_3 = QtWidgets.QGridLayout(self.centralwidget)
