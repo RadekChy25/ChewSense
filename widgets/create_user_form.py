@@ -10,6 +10,9 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 
 
 class Ui_create_user_form(object):
+    def __init__(self):
+        super().__init__()
+
     def setupUi(self, create_user_form):
         create_user_form.setObjectName("create_user_form")
         create_user_form.resize(720, 515)
