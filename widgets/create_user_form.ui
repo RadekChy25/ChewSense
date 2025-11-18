@@ -10,13 +10,19 @@
     <height>515</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>720</width>
+    <height>515</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
+     <item row="1" column="0">
       <widget class="QLabel" name="id_label">
        <property name="minimumSize">
         <size>
@@ -38,7 +44,29 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1" colspan="2">
+     <item row="4" column="0">
+      <widget class="QLabel" name="age_label">
+       <property name="minimumSize">
+        <size>
+         <width>176</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>AGE</string>
+       </property>
+       <property name="margin">
+        <number>15</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" colspan="2">
       <widget class="QLineEdit" name="id_input">
        <property name="minimumSize">
         <size>
@@ -48,7 +76,23 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
+     <item row="5" column="2">
+      <widget class="QPushButton" name="add_user_btn">
+       <property name="maximumSize">
+        <size>
+         <width>156</width>
+         <height>23</height>
+        </size>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="text">
+        <string>CREATE A USER</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
       <widget class="QLabel" name="first_name_label">
        <property name="minimumSize">
         <size>
@@ -70,17 +114,7 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1" colspan="2">
-      <widget class="QLineEdit" name="first_name_input">
-       <property name="minimumSize">
-        <size>
-         <width>400</width>
-         <height>40</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
+     <item row="3" column="0">
       <widget class="QLabel" name="last_name_label">
        <property name="minimumSize">
         <size>
@@ -103,7 +137,7 @@
       </widget>
      </item>
      <item row="2" column="1" colspan="2">
-      <widget class="QLineEdit" name="last_name_input">
+      <widget class="QLineEdit" name="first_name_input">
        <property name="minimumSize">
         <size>
          <width>400</width>
@@ -112,39 +146,7 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="age_label">
-       <property name="minimumSize">
-        <size>
-         <width>176</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>AGE</string>
-       </property>
-       <property name="margin">
-        <number>15</number>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1" colspan="2">
-      <widget class="QLineEdit" name="age_input">
-       <property name="minimumSize">
-        <size>
-         <width>400</width>
-         <height>40</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
+     <item row="5" column="1">
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -157,19 +159,55 @@
        </property>
       </spacer>
      </item>
-     <item row="4" column="2">
-      <widget class="QPushButton" name="add_user_btn">
-       <property name="maximumSize">
+     <item row="3" column="1" colspan="2">
+      <widget class="QLineEdit" name="last_name_input">
+       <property name="minimumSize">
         <size>
-         <width>156</width>
-         <height>23</height>
+         <width>400</width>
+         <height>40</height>
         </size>
        </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
+      </widget>
+     </item>
+     <item row="4" column="1" colspan="2">
+      <widget class="QLineEdit" name="age_input">
+       <property name="minimumSize">
+        <size>
+         <width>400</width>
+         <height>40</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QPushButton" name="close_btn">
+       <property name="minimumSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border: 0;</string>
        </property>
        <property name="text">
-        <string>CREATE A USER</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../resources.qrc">
+         <normaloff>:/icons/widgets/icons/exit_icon.png</normaloff>:/icons/widgets/icons/exit_icon.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -177,6 +215,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

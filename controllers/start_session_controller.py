@@ -1,12 +1,13 @@
 
 from PyQt6.QtWidgets import QWidget
-from widgets.create_user_form import Ui_create_user_form
+from widgets.start_session_widget import Ui_session_create
 
-class Create_user_form_controller(QWidget):
+
+class Start_session_controller(QWidget):
     def __init__(self):
         super().__init__()
-        
-        self.ui = Ui_create_user_form()
+
+        self.ui = Ui_session_create()
         self.ui.setupUi(self)
 
         self.ui.close_btn.clicked.connect(self.close_window)
