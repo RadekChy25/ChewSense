@@ -1,5 +1,9 @@
 <RCC>
   <qresource prefix="icons">
+    <file>widgets/icons/house_checked_icon.png</file>
+    <file>widgets/icons/download_checked_icon.png</file>
+    <file>widgets/icons/diagram_checked_icon.png</file>
+    <file>widgets/icons/data_checked_icon.png</file>
     <file>widgets/icons/user_icon.png</file>
     <file>widgets/icons/plus_icon.png</file>
     <file>widgets/icons/pen_icon.png</file>
