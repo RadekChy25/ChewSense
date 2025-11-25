@@ -16,7 +16,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(908, 586)
-        QtCore.QDir.addSearchPath('icons', './widgets/icons')
+        QtCore.QDir.addSearchPath('icons', './views/icons')
         self.verticalLayout = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout.setObjectName("verticalLayout")
         self.gridLayout = QtWidgets.QGridLayout()

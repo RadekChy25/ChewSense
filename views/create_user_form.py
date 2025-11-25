@@ -14,7 +14,7 @@ class Ui_create_user_form(object):
         super().__init__()
 
     def setupUi(self, create_user_form):
-        QtCore.QDir.addSearchPath('icons', './widgets/icons')
+        QtCore.QDir.addSearchPath('icons', './views/icons')
         create_user_form.setObjectName("create_user_form")
         create_user_form.resize(720, 515)
         create_user_form.setMinimumSize(QtCore.QSize(720, 515))

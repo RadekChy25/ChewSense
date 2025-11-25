@@ -1,16 +1,16 @@
 <RCC>
   <qresource prefix="icons">
-    <file>widgets/icons/house_checked_icon.png</file>
-    <file>widgets/icons/download_checked_icon.png</file>
-    <file>widgets/icons/diagram_checked_icon.png</file>
-    <file>widgets/icons/data_checked_icon.png</file>
-    <file>widgets/icons/user_icon.png</file>
-    <file>widgets/icons/plus_icon.png</file>
-    <file>widgets/icons/pen_icon.png</file>
-    <file>widgets/icons/house_icon.png</file>
-    <file>widgets/icons/exit_icon.png</file>
-    <file>widgets/icons/download_icon.png</file>
-    <file>widgets/icons/diagram_icon.png</file>
-    <file>widgets/icons/data_icon.png</file>
+    <file>views/icons/house_checked_icon.png</file>
+    <file>views/icons/download_checked_icon.png</file>
+    <file>views/icons/diagram_checked_icon.png</file>
+    <file>views/icons/data_checked_icon.png</file>
+    <file>views/icons/user_icon.png</file>
+    <file>views/icons/plus_icon.png</file>
+    <file>views/icons/pen_icon.png</file>
+    <file>views/icons/house_icon.png</file>
+    <file>views/icons/exit_icon.png</file>
+    <file>views/icons/download_icon.png</file>
+    <file>views/icons/diagram_icon.png</file>
+    <file>views/icons/data_icon.png</file>
   </qresource>
 </RCC>

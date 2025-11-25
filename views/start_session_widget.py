@@ -14,7 +14,7 @@ class Ui_session_create(object):
         super().__init__()
 
     def setupUi(self, session_create):
-        QtCore.QDir.addSearchPath('icons', './widgets/icons')
+        QtCore.QDir.addSearchPath('icons', './views/icons')
         session_create.setObjectName("session_create")
         session_create.resize(561, 183)
         self.gridLayout_4 = QtWidgets.QGridLayout(session_create)
