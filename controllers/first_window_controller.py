@@ -1,6 +1,6 @@
 
 from PyQt6.QtWidgets import QWidget
-from widgets.first_window import Ui_Form
+from views.first_window import Ui_Form
 from controllers.start_session_controller import Start_session_controller
 from controllers.create_user_form_controller import Create_user_form_controller
 from controllers.main_window_controller import Main_window_controller

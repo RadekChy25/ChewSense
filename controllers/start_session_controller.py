@@ -1,6 +1,6 @@
 
 from PyQt6.QtWidgets import QWidget
-from widgets.start_session_widget import Ui_session_create
+from views.start_session_widget import Ui_session_create
 from controllers.main_window_controller import Main_window_controller
 
 
