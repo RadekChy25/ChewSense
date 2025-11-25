@@ -1,12 +1,13 @@
-from supabase import create_client
+import sys
 import os
+import serial
+import serial.tools.list_ports
+from supabase import create_client
 from dotenv import load_dotenv
 from PyQt6 import QtWidgets
 from widgets.main_window import Ui_MainWindow
 from PyQt6.QtCore import QThread, pyqtSignal
-import serial
-import serial.tools.list_ports
-import sys
+from controllers.first_window_controller import First_window_controller
 
 
 def detect_seeeduino_port():
@@ -47,7 +48,7 @@ class SerialReaderThread(QThread):
         try:
             port = detect_seeeduino_port()
             self.serial = serial.Serial(port, self.baudrate, timeout=1)
-            self.serial.flushInput()
+            self.serial.flush()
 
             while not self._stop_flag:
                 line = self.serial.readline().decode('utf-8', errors='ignore').strip()
@@ -75,6 +76,10 @@ class SerialReaderThread(QThread):
 load_dotenv(".env")
 SUPABASE_URL = os.getenv("DATABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+
+if SUPABASE_URL is None or SUPABASE_KEY is None:
+    raise ValueError("Missing Supabase environment variables")
+
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 
