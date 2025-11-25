@@ -107,9 +107,10 @@ class MainWindow(QtWidgets.QMainWindow):
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
+    w = First_window_controller()
+    w.show()
     sys.exit(app.exec())
+    app.exec()
 
 if __name__ == "__main__":
     main()

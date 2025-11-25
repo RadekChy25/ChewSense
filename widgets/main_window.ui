@@ -15,22 +15,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_3">
-    <item row="1" column="0">
-     <widget class="Line" name="line">
-      <property name="autoFillBackground">
-       <bool>true</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color:black;</string>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QWidget" name="main_widget" native="true"/>
-    </item>
     <item row="0" column="0">
      <widget class="QWidget" name="navbar_widget" native="true">
       <property name="maximumSize">
@@ -57,14 +41,18 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="resources.qrc">
-             <normaloff>:/icons/icons/diagram_icon.png</normaloff>:/icons/icons/diagram_icon.png</iconset>
+            <iconset resource="../resources.qrc">
+             <normaloff>:/icons/widgets/icons/diagram_icon.png</normaloff>
+             <normalon>:/icons/widgets/icons/diagram_checked_icon.png</normalon>:/icons/widgets/icons/diagram_icon.png</iconset>
            </property>
            <property name="iconSize">
             <size>
              <width>50</width>
              <height>50</height>
             </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -86,8 +74,8 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="resources.qrc">
-             <normaloff>:/icons/icons/exit_icon.png</normaloff>:/icons/icons/exit_icon.png</iconset>
+            <iconset resource="../resources.qrc">
+             <normaloff>:/icons/widgets/icons/exit_icon.png</normaloff>:/icons/widgets/icons/exit_icon.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -109,14 +97,18 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="resources.qrc">
-             <normaloff>:/icons/icons/data_icon.png</normaloff>:/icons/icons/data_icon.png</iconset>
+            <iconset resource="../resources.qrc">
+             <normaloff>:/icons/widgets/icons/data_icon.png</normaloff>
+             <normalon>:/icons/widgets/icons/data_checked_icon.png</normalon>:/icons/widgets/icons/data_icon.png</iconset>
            </property>
            <property name="iconSize">
             <size>
              <width>50</width>
              <height>50</height>
             </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -152,8 +144,8 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="resources.qrc">
-             <normaloff>:/icons/icons/user_icon.png</normaloff>:/icons/icons/user_icon.png</iconset>
+            <iconset resource="../resources.qrc">
+             <normaloff>:/icons/widgets/icons/user_icon.png</normaloff>:/icons/widgets/icons/user_icon.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -175,14 +167,18 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="resources.qrc">
-             <normaloff>:/icons/icons/download_icon.png</normaloff>:/icons/icons/download_icon.png</iconset>
+            <iconset resource="../resources.qrc">
+             <normaloff>:/icons/widgets/icons/download_icon.png</normaloff>
+             <normalon>:/icons/widgets/icons/download_checked_icon.png</normalon>:/icons/widgets/icons/download_icon.png</iconset>
            </property>
            <property name="iconSize">
             <size>
              <width>50</width>
              <height>50</height>
             </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -198,14 +194,21 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset resource="resources.qrc">
-             <normaloff>:/icons/icons/house_icon.png</normaloff>:/icons/icons/house_icon.png</iconset>
+            <iconset resource="../resources.qrc">
+             <normaloff>:/icons/widgets/icons/house_icon.png</normaloff>
+             <normalon>:/icons/widgets/icons/house_checked_icon.png</normalon>:/icons/widgets/icons/house_icon.png</iconset>
            </property>
            <property name="iconSize">
             <size>
              <width>50</width>
              <height>50</height>
             </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -221,12 +224,112 @@
       </layout>
      </widget>
     </item>
+    <item row="1" column="0">
+     <widget class="Line" name="line">
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:black;</string>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QStackedWidget" name="main_stackedWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="main_stackedWidgetPage1">
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="0">
+           <widget class="QWidget" name="left_cheek_high_graph" native="true"/>
+          </item>
+          <item row="0" column="1">
+           <widget class="QWidget" name="right_cheek_high_graph" native="true"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QWidget" name="left_cheek_low_graph" native="true"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QWidget" name="right_cheek_low_graph" native="true"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>48</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>48</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>48</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page">
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="0" column="0">
+           <widget class="QWidget" name="widget" native="true"/>
+          </item>
+          <item row="0" column="1">
+           <widget class="QWidget" name="widget_2" native="true"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QWidget" name="widget_3" native="true"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QWidget" name="widget_4" native="true"/>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_2"/>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections/>
 </ui>
