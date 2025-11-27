@@ -2,7 +2,44 @@ import serial
 import serial.tools.list_ports
 from PyQt6.QtCore import QThread, pyqtSignal
 
-class Arduino():
+class SerialReaderThread(QThread):
+    new_sample = pyqtSignal(int, int, int)  # sample_index, adc_value, millis
+
+    def __init__(self, baudrate=115200, parent=None):
+        super().__init__(parent)
+        self.baudrate = baudrate
+        self._stop_flag = False
+        self.serial = None
+
+    def run(self, port):
+        try:
+            self.serial = serial.Serial(port, self.baudrate, timeout=1)
+            self.serial.flush()
+
+            while not self._stop_flag:
+                line = self.serial.readline().decode('utf-8', errors='ignore').strip()
+                if not line or line.startswith('#'):
+                    continue
+                try:
+                    parts = line.split(',')
+                    if len(parts) == 3:
+                        sample_index = int(parts[0])
+                        adc_value = int(parts[1])
+                        millis = int(parts[2])
+                        self.new_sample.emit(sample_index, adc_value, millis)
+                except ValueError:
+                    continue  # just skip faulty lines
+        except Exception as e:
+            print("SerialReaderThread error:", e)
+
+        if self.serial and self.serial.is_open:
+            self.serial.close()
+
+    def stop(self):
+        self._stop_flag = True
+
+
+class Seeeduino():
     def __init__(self):
         super().__init__()
 
@@ -14,7 +51,7 @@ class Arduino():
         print(f"EMG: {sample_index}, {adc_value}, {millis} ms")
     
 
-    def closeEvent(self, event):
+    def closeEvent(self):
         if self.serial_thread:
             self.serial_thread.stop()
             self.serial_thread.wait()
@@ -44,41 +81,3 @@ class Arduino():
             choice = int(input("Select port number: "))
             return seeeduino_ports[choice]
         
-
-class SerialReaderThread(QThread):
-    new_sample = pyqtSignal(int, int, int)  # sample_index, adc_value, millis
-    arduino = Arduino()
-
-    def __init__(self, baudrate=115200, parent=None):
-        super().__init__(parent)
-        self.baudrate = baudrate
-        self._stop_flag = False
-        self.serial = None
-
-    def run(self):
-        try:
-            port = self.arduino.detect_seeeduino_port()
-            self.serial = serial.Serial(port, self.baudrate, timeout=1)
-            self.serial.flush()
-
-            while not self._stop_flag:
-                line = self.serial.readline().decode('utf-8', errors='ignore').strip()
-                if not line or line.startswith('#'):
-                    continue
-                try:
-                    parts = line.split(',')
-                    if len(parts) == 3:
-                        sample_index = int(parts[0])
-                        adc_value = int(parts[1])
-                        millis = int(parts[2])
-                        self.new_sample.emit(sample_index, adc_value, millis)
-                except ValueError:
-                    continue  # just skip faulty lines
-        except Exception as e:
-            print("SerialReaderThread error:", e)
-
-        if self.serial and self.serial.is_open:
-            self.serial.close()
-
-    def stop(self):
-        self._stop_flag = True

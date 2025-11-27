@@ -21,6 +21,8 @@ class First_window_controller(QWidget):
 
         self.start_session_controller.ui.start_session_btn.clicked.connect(self.open_main_window)
 
+        self.main_window_controller.ui.exit_btn.clicked.connect(self.close_main_window)
+
     def add_user(self): 
         self.create_user_controller.show()
 
@@ -33,3 +35,7 @@ class First_window_controller(QWidget):
         if self.start_session_controller.isVisible() or self.isVisible():
             self.start_session_controller.close()
             self.close()
+
+    def close_main_window(self):
+        self.main_window_controller.close()
+        self.show()

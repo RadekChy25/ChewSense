@@ -42,8 +42,8 @@
            </property>
            <property name="icon">
             <iconset resource="../resources.qrc">
-             <normaloff>:/icons/widgets/icons/diagram_icon.png</normaloff>
-             <normalon>:/icons/widgets/icons/diagram_checked_icon.png</normalon>:/icons/widgets/icons/diagram_icon.png</iconset>
+             <normaloff>:/icons/views/icons/diagram_icon.png</normaloff>
+             <normalon>:/icons/views/icons/diagram_checked_icon.png</normalon>:/icons/views/icons/diagram_icon.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -75,7 +75,7 @@
            </property>
            <property name="icon">
             <iconset resource="../resources.qrc">
-             <normaloff>:/icons/widgets/icons/exit_icon.png</normaloff>:/icons/widgets/icons/exit_icon.png</iconset>
+             <normaloff>:/icons/views/icons/exit_icon.png</normaloff>:/icons/views/icons/exit_icon.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -98,8 +98,7 @@
            </property>
            <property name="icon">
             <iconset resource="../resources.qrc">
-             <normaloff>:/icons/widgets/icons/data_icon.png</normaloff>
-             <normalon>:/icons/widgets/icons/data_checked_icon.png</normalon>:/icons/widgets/icons/data_icon.png</iconset>
+             <normaloff>:/icons/views/icons/data_icon.png</normaloff>:/icons/views/icons/data_icon.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -145,7 +144,7 @@
            </property>
            <property name="icon">
             <iconset resource="../resources.qrc">
-             <normaloff>:/icons/widgets/icons/user_icon.png</normaloff>:/icons/widgets/icons/user_icon.png</iconset>
+             <normaloff>:/icons/views/icons/user_icon.png</normaloff>:/icons/views/icons/user_icon.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -168,8 +167,8 @@
            </property>
            <property name="icon">
             <iconset resource="../resources.qrc">
-             <normaloff>:/icons/widgets/icons/download_icon.png</normaloff>
-             <normalon>:/icons/widgets/icons/download_checked_icon.png</normalon>:/icons/widgets/icons/download_icon.png</iconset>
+             <normaloff>:/icons/views/icons/download_icon.png</normaloff>
+             <normalon>:/icons/views/icons/download_checked_icon.png</normalon>:/icons/views/icons/download_icon.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -195,8 +194,8 @@
            </property>
            <property name="icon">
             <iconset resource="../resources.qrc">
-             <normaloff>:/icons/widgets/icons/house_icon.png</normaloff>
-             <normalon>:/icons/widgets/icons/house_checked_icon.png</normalon>:/icons/widgets/icons/house_icon.png</iconset>
+             <normaloff>:/icons/views/icons/house_icon.png</normaloff>
+             <normalon>:/icons/views/icons/house_checked_icon.png</normalon>:/icons/views/icons/house_icon.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -240,9 +239,9 @@
     <item row="2" column="0">
      <widget class="QStackedWidget" name="main_stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
-      <widget class="QWidget" name="main_stackedWidgetPage1">
+      <widget class="QWidget" name="home_page_widget">
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout">
@@ -301,7 +300,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page">
+      <widget class="QWidget" name="diagram_page_widget">
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout_4">
@@ -321,7 +320,232 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_2"/>
+      <widget class="QWidget" name="data_page_widget">
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout_6">
+          <item row="0" column="1">
+           <widget class="QLabel" name="label_7">
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+            <property name="margin">
+             <number>8</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="label_8">
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+            <property name="margin">
+             <number>8</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+            <property name="margin">
+             <number>8</number>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+            <property name="margin">
+             <number>8</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+            <property name="margin">
+             <number>8</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="label_9">
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+            <property name="margin">
+             <number>8</number>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" colspan="3">
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>30</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="2" rowspan="3">
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page">
+       <layout class="QGridLayout" name="gridLayout_9">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout_8">
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_11">
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Session</string>
+            </property>
+            <property name="margin">
+             <number>8</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Download</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_12">
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Session</string>
+            </property>
+            <property name="margin">
+             <number>8</number>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_10">
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Session</string>
+            </property>
+            <property name="margin">
+             <number>8</number>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="pushButton">
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Download</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QPushButton" name="pushButton_3">
+            <property name="font">
+             <font>
+              <pointsize>15</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Download</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" colspan="2">
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
