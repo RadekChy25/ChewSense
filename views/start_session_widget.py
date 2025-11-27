@@ -17,6 +17,7 @@ class Ui_session_create(object):
         QtCore.QDir.addSearchPath('icons', './views/icons')
         session_create.setObjectName("session_create")
         session_create.resize(561, 183)
+        session_create.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);")
         self.gridLayout_4 = QtWidgets.QGridLayout(session_create)
         self.gridLayout_4.setObjectName("gridLayout_4")
         self.gridLayout_3 = QtWidgets.QGridLayout()

@@ -18,6 +18,7 @@ class Ui_create_user_form(object):
         create_user_form.setObjectName("create_user_form")
         create_user_form.resize(720, 515)
         create_user_form.setMinimumSize(QtCore.QSize(720, 515))
+        create_user_form.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);")
         self.gridLayout_2 = QtWidgets.QGridLayout(create_user_form)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.gridLayout = QtWidgets.QGridLayout()

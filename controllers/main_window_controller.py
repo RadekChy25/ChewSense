@@ -1,5 +1,5 @@
 from views.main_window import Ui_MainWindow
-from model.arduino import SerialReaderThread
+from model.seeduino import Seeeduino
 from PyQt6.QtWidgets import QMainWindow
 
 class Main_window_controller(QMainWindow):
@@ -11,8 +11,18 @@ class Main_window_controller(QMainWindow):
 
         self.ui.main_stackedWidget.setCurrentIndex(0)
 
-        self.arduino = SerialReaderThread()
-        self.arduino.stop()
+        # self.seeduino = Seeeduino()
+        # self.seeduino.closeEvent()
+
+        self.ui.left_cheek_high_graph.plot([1,2,3,4,5,6,7,8,9], [5,10,15,20,25,30,35,40,45])
+        self.ui.left_cheek_high_graph.show()
+        self.ui.left_cheek_low_graph.plot([1,2,3,4,5,6,7,8,9], [5,10,15,20,25,30,35,40,45])
+        self.ui.left_cheek_low_graph.show()
+
+        self.ui.right_cheek_high_graph.plot([1,2,3,4,5,6,7,8,9], [5,10,15,20,25,30,35,40,45])
+        self.ui.right_cheek_high_graph.show()
+        self.ui.right_cheek_low_graph.plot([1,2,3,4,5,6,7,8,9], [5,10,15,20,25,30,35,40,45])
+        self.ui.right_cheek_low_graph.show()
 
         self.ui.home_btn.clicked.connect(lambda: self.nav_button_switching(self.ui.home_btn))
         self.ui.diagram_btn.clicked.connect(lambda: self.nav_button_switching(self.ui.diagram_btn))

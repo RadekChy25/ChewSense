@@ -16,6 +16,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(908, 586)
+        Form.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);")
         QtCore.QDir.addSearchPath('icons', './views/icons')
         self.verticalLayout = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout.setObjectName("verticalLayout")

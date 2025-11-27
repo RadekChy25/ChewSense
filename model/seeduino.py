@@ -5,15 +5,16 @@ from PyQt6.QtCore import QThread, pyqtSignal
 class SerialReaderThread(QThread):
     new_sample = pyqtSignal(int, int, int)  # sample_index, adc_value, millis
 
-    def __init__(self, baudrate=115200, parent=None):
+    def __init__(self, port, baudrate=115200, parent=None):
         super().__init__(parent)
         self.baudrate = baudrate
         self._stop_flag = False
         self.serial = None
+        self.ports = port
 
-    def run(self, port):
+    def run(self):
         try:
-            self.serial = serial.Serial(port, self.baudrate, timeout=1)
+            self.serial = serial.Serial(self.ports, self.baudrate, timeout=1)
             self.serial.flush()
 
             while not self._stop_flag:
@@ -43,7 +44,8 @@ class Seeeduino():
     def __init__(self):
         super().__init__()
 
-        self.serial_thread = SerialReaderThread()
+        self.serial_thread = SerialReaderThread(self.detect_seeeduino_port())
+        self.closeEvent()
         self.serial_thread.new_sample.connect(self.handle_emg_sample)
         self.serial_thread.start()
 
