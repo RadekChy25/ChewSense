@@ -1,6 +1,7 @@
 import serial
 import serial.tools.list_ports
 from PyQt6.QtCore import QThread, pyqtSignal
+from .database import supabase
 
 class SerialReaderThread(QThread):
     new_sample = pyqtSignal(int, int, int)  # sample_index, adc_value, millis
@@ -51,6 +52,14 @@ class Seeeduino():
 
     def handle_emg_sample(self, sample_index, adc_value, millis):
         print(f"EMG: {sample_index}, {adc_value}, {millis} ms")
+        try:
+            data = supabase.table("emg_data").insert({
+                "sample_index": sample_index,
+                "adc_value": adc_value,
+                "millis": millis
+            }).execute()
+        except Exception as e:
+            print("Error inserting data into Supabase:", e)
     
 
     def closeEvent(self):
