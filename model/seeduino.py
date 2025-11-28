@@ -11,6 +11,7 @@ class SerialReaderThread(QThread):
         self._stop_flag = False
         self.serial = None
         self.ports = port
+        self.stop()
 
     def run(self):
         try:
@@ -45,9 +46,7 @@ class Seeeduino():
         super().__init__()
 
         self.serial_thread = SerialReaderThread(self.detect_seeeduino_port())
-        self.closeEvent()
         self.serial_thread.new_sample.connect(self.handle_emg_sample)
-        self.serial_thread.start()
 
     def handle_emg_sample(self, sample_index, adc_value, millis):
         print(f"EMG: {sample_index}, {adc_value}, {millis} ms")

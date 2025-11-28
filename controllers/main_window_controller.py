@@ -9,20 +9,13 @@ class Main_window_controller(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.ui.main_stackedWidget.setCurrentIndex(0)
-
-        # self.seeduino = Seeeduino()
-        # self.seeduino.closeEvent()
+        self.seeduino = Seeeduino()
 
         self.ui.left_cheek_high_graph.plot([1,2,3,4,5,6,7,8,9], [5,10,15,20,25,30,35,40,45])
-        self.ui.left_cheek_high_graph.show()
         self.ui.left_cheek_low_graph.plot([1,2,3,4,5,6,7,8,9], [5,10,15,20,25,30,35,40,45])
-        self.ui.left_cheek_low_graph.show()
 
         self.ui.right_cheek_high_graph.plot([1,2,3,4,5,6,7,8,9], [5,10,15,20,25,30,35,40,45])
-        self.ui.right_cheek_high_graph.show()
         self.ui.right_cheek_low_graph.plot([1,2,3,4,5,6,7,8,9], [5,10,15,20,25,30,35,40,45])
-        self.ui.right_cheek_low_graph.show()
 
         self.ui.home_btn.clicked.connect(lambda: self.nav_button_switching(self.ui.home_btn))
         self.ui.diagram_btn.clicked.connect(lambda: self.nav_button_switching(self.ui.diagram_btn))
@@ -42,5 +35,15 @@ class Main_window_controller(QMainWindow):
         for btn in buttons:
             btn.setChecked(btn is button_name)
 
+        if button_name == self.ui.home_btn:
+            self.ui.left_cheek_high_graph.show()
+            self.ui.left_cheek_low_graph.show()
+            self.ui.right_cheek_high_graph.show()
+            self.ui.right_cheek_low_graph.show()
+            self.seeduino.serial_thread.start()
+
     def graph(self):
         pass
+
+    def connect_device(self):
+        self.seeduino.serial_thread.start()

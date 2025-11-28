@@ -10,7 +10,9 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 
 
 class Ui_MainWindow(object):
-    
+    def __init__(self) :
+        super().__init__()
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(897, 649)
@@ -264,6 +266,29 @@ class Ui_MainWindow(object):
         self.gridLayout_8.addItem(spacerItem3, 3, 0, 1, 2)
         self.gridLayout_9.addLayout(self.gridLayout_8, 0, 0, 1, 1)
         self.main_stackedWidget.addWidget(self.page)
+        self.page_2 = QtWidgets.QWidget()
+        self.page_2.setObjectName("page_2")
+        self.gridLayout_11 = QtWidgets.QGridLayout(self.page_2)
+        self.gridLayout_11.setObjectName("gridLayout_11")
+        self.gridLayout_10 = QtWidgets.QGridLayout()
+        self.gridLayout_10.setObjectName("gridLayout_10")
+        spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        self.gridLayout_10.addItem(spacerItem4, 0, 2, 1, 1)
+        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.gridLayout_10.addItem(spacerItem5, 1, 0, 1, 1)
+        self.connect_device_btn = QtWidgets.QPushButton(parent=self.page_2)
+        self.connect_device_btn.setMinimumSize(QtCore.QSize(473, 74))
+        font = QtGui.QFont()
+        font.setPointSize(24)
+        self.connect_device_btn.setFont(font)
+        self.connect_device_btn.setObjectName("connect_device_btn")
+        self.gridLayout_10.addWidget(self.connect_device_btn, 1, 1, 1, 2)
+        spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.gridLayout_10.addItem(spacerItem6, 1, 3, 1, 1)
+        spacerItem7 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        self.gridLayout_10.addItem(spacerItem7, 2, 1, 1, 1)
+        self.gridLayout_11.addLayout(self.gridLayout_10, 0, 0, 1, 1)
+        self.main_stackedWidget.addWidget(self.page_2)
         self.gridLayout_3.addWidget(self.main_stackedWidget, 2, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
@@ -271,7 +296,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.main_stackedWidget.setCurrentIndex(3)
+        self.main_stackedWidget.setCurrentIndex(4)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -293,4 +318,4 @@ class Ui_MainWindow(object):
         self.label_10.setText(_translate("MainWindow", "Session"))
         self.pushButton.setText(_translate("MainWindow", "Download"))
         self.pushButton_3.setText(_translate("MainWindow", "Download"))
-
+        self.connect_device_btn.setText(_translate("MainWindow", "CONNECT TO THE DEVICE"))
