@@ -1,6 +1,7 @@
 from views.main_window import Ui_MainWindow
 from model.seeduino import Seeeduino
 from PyQt6.QtWidgets import QMainWindow
+from PyQt6 import QtCore
 
 class Main_window_controller(QMainWindow):
     def __init__(self):
@@ -11,7 +12,27 @@ class Main_window_controller(QMainWindow):
 
         self.seeduino = Seeeduino()
 
-        self.ui.left_cheek_high_graph.plot([1,2,3,4,5,6,7,8,9], [5,10,15,20,25,30,35,40,45])
+        self.data_x = []
+        self.data_y = []
+        self.data_z = []
+
+        self.line = self.ui.left_cheek_high_graph.plot(
+            self.data_x,
+            self.data_y,
+            symbol="+",
+            symbolSize=15,
+            symbolBrush="b",
+        )
+
+
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.plot)
+        self.timer.start()
+
+        
+        self.seeduino.serial_thread.new_sample.connect(self.update_plot)
+
+        #self.ui.left_cheek_high_graph.plot(self.data_x, self.data_y)
         self.ui.left_cheek_low_graph.plot([1,2,3,4,5,6,7,8,9], [5,10,15,20,25,30,35,40,45])
 
         self.ui.right_cheek_high_graph.plot([1,2,3,4,5,6,7,8,9], [5,10,15,20,25,30,35,40,45])
@@ -42,8 +63,20 @@ class Main_window_controller(QMainWindow):
             self.ui.right_cheek_low_graph.show()
             self.seeduino.serial_thread.start()
 
-    def graph(self):
-        pass
+    #def graph(self, sample_index, adc_value, millis):
+        #self.data_x.append(millis)
+        #self.data_y.append(adc_value)
 
     def connect_device(self):
         self.seeduino.serial_thread.start()
+    
+    def update_plot(self, sample_index, adc_value, millis):
+        """Receive samples emitted by pyqtSignal and update the graph."""
+        self.data_x.append(millis)
+        self.data_y.append(adc_value)
+        self.data_z.append(sample_index)  
+
+        self.ui.left_cheek_high_graph.setData(self.data_x, self.data_y)
+
+    def plot(self):
+        self.line.setData(self.data_x, self.data_y)
