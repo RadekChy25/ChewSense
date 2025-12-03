@@ -10,6 +10,7 @@ class Main_window_controller(QMainWindow):
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.ui.main_stackedWidget.setCurrentIndex(4)
 
         self.seeduino = Mock_seeduino()
         self.session = Session()
