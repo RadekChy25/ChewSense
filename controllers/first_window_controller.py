@@ -64,6 +64,7 @@ class First_window_controller(QWidget):
 
     def close_main_window(self):
         self.main_window_controller.close()
+        self.main_window_controller.seeduino.serial_thread.stop()
         self.show()
 
     def create_user(self):
