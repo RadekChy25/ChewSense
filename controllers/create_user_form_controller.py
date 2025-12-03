@@ -14,7 +14,3 @@ class Create_user_form_controller(QWidget):
 
     def close_window(self):
         self.close()
-
-    def load_users():
-        users = User.get_user()
-        return users

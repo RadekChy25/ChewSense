@@ -15,14 +15,14 @@ class First_window_controller(QWidget):
         
         self.user = User()
         self.session = Session()
-
-        self.users = self.user.get_user()  # Save full user info
-        self.ui.user_list.addItems([f"{u['first_name']} {u['last_name']}" for u in self.users])
-        self.ui.user_list.currentIndexChanged.connect(self.update_session_list)
-        
         self.create_user_controller = Create_user_form_controller()
         self.start_session_controller = Start_session_controller()
         self.main_window_controller = Main_window_controller()
+
+        self.users = self.user.get_user()  # Save full user info
+        self.ui.user_list.addItems([f"{u['first_name']} {u['last_name']}" for u in self.users])
+        #self.main_window_controller = self.ui.user_list.currentIndex()
+        self.ui.user_list.currentIndexChanged.connect(self.update_session_list)
 
         self.ui.add_user_btn.clicked.connect(self.add_user)
         self.ui.add_session_btn.clicked.connect(self.add_session)
@@ -47,10 +47,6 @@ class First_window_controller(QWidget):
         sessions = self.session.get_sessions(user_id)
         session_names = [s["name"] for s in sessions]
         self.ui.session_list.addItems(session_names)
-    
-    #def get_session_list(self, user_ids):
-        #sessions = self.session.get_sessions(user_ids)
-        #return [session['name'] for session in sessions]
 
     def add_session(self):
         self.start_session_controller.show()
@@ -78,7 +74,7 @@ class First_window_controller(QWidget):
 
     def create_session(self):
         session_name = self.start_session_controller.ui.session_nr_input.text()
-        selected_user_index = self.ui.user_list.currentIndex()
+        selected_user_index = self.ui.user_list.currentIndex() + 1
         if selected_user_index < 0 or selected_user_index >= len(self.users):
             print("No user selected.")
             return

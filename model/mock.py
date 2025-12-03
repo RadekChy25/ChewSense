@@ -1,4 +1,5 @@
-from PyQt6.QtCore import QThread, pyqtSignal
+from PyQt6.QtCore import QThread, pyqtSignal, QThreadPool
+from model.database import SaveSamplesWorker
 import time
 
 class MockSeeduinoThread(QThread):
@@ -31,13 +32,14 @@ class Mock_seeduino():
         self.data = []
         self.buffer_size = 200
         self.serial_thread = MockSeeduinoThread()
+        self.thread_pool = QThreadPool()
 
     def closeEvent(self):
         if self.serial_thread:
             self.serial_thread.stop()
             self.serial_thread.wait()
 
-    def flush_data(self):
+    def flush_data(self, session_id: str):
         if not self.data:
             return
 
@@ -45,7 +47,10 @@ class Mock_seeduino():
         self.data = []  # free RAM
 
         payload = {
-            "session_id": 1,
-            "sample_rate": 1000,
-            "samples": chunk  # stored as 2D array
+            "session_id": session_id,
+            "adc_values": [d[1] for d in chunk],
+            "mili_seconds": [d[2] for d in chunk],
         }
+
+        worker = SaveSamplesWorker(payload)
+        self.thread_pool.start(worker)

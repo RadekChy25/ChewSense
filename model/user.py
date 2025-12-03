@@ -2,17 +2,7 @@ from .database import supabase
 
 class User:
     TABLE = "users"
-    def create_user(self, first_name: str, last_name: str):
-        try:
-            response = supabase.table(User.TABLE).insert({
-                "first_name": first_name,
-                "last_name": last_name
-            }).execute()
-            return response.data
-        except Exception as e:
-            print("Error creating user:", e)
-            return None 
-        
+    
     def get_user(self):
         try:
             response = supabase.table(User.TABLE).select("*").execute()

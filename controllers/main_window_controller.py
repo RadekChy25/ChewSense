@@ -1,6 +1,7 @@
 from views.main_window import Ui_MainWindow
 from model.seeduino import Seeeduino
 from model.mock import Mock_seeduino
+from model.sessions import Session
 from PyQt6.QtWidgets import QMainWindow
 
 class Main_window_controller(QMainWindow):
@@ -11,6 +12,7 @@ class Main_window_controller(QMainWindow):
         self.ui.setupUi(self)
 
         self.seeduino = Mock_seeduino()
+        self.session = Session()
 
         self.data = self.seeduino.data
         x = [d[2] for d in self.data]  # sample_index
@@ -56,10 +58,12 @@ class Main_window_controller(QMainWindow):
     
     def update_plot(self, sample_index, adc_value, millis):
         """Receive samples emitted by pyqtSignal and update the graph."""
-        self.data.append((sample_index, adc_value, millis))
+        self.seeduino.data.append((sample_index, adc_value, millis))
 
         x = [d[2] for d in self.data]  # sample_index
         y = [d[1] for d in self.data]  # adc_value
         self.line.setData(x, y)
-
-
+        if len(self.seeduino.data) >= 50:
+            #self.seeduino.flush_data(self.session.get_session_id(self.user_id, self.ui.session_label.text()))
+            pass
+        print(len(self.seeduino.data))
