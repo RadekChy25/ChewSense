@@ -80,14 +80,14 @@ class Seeeduino():
             ):
                 seeeduino_ports.append(port.device)
 
-        if not seeeduino_ports:
-            raise IOError("sEMG not detected. Please check the USB connection.")
-        elif len(seeeduino_ports) == 1:
-            return seeeduino_ports[0]
-        else:
-            print("Multiple compatible ports found:")
-            for i, p in enumerate(seeeduino_ports):
-                print(f"{i}: {p}")
-            choice = int(input("Select port number: "))
-            return seeeduino_ports[choice]
+        #if not seeeduino_ports:
+            #raise IOError("sEMG not detected. Please check the USB connection.")
+       #elif len(seeeduino_ports) == 1:
+            #return seeeduino_ports[0]
+       # else:
+            #print("Multiple compatible ports found:")
+            #for i, p in enumerate(seeeduino_ports):
+            #    print(f"{i}: {p}")
+            #choice = int(input("Select port number: "))
+            #return seeeduino_ports[choice]
         
