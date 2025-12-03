@@ -1,4 +1,5 @@
 from PyQt6.QtWidgets import QWidget
+from PyQt6.QtCore import pyqtSignal
 from views.first_window import Ui_Form
 from controllers.start_session_controller import Start_session_controller
 from controllers.create_user_form_controller import Create_user_form_controller
@@ -21,7 +22,6 @@ class First_window_controller(QWidget):
 
         self.users = self.user.get_user()  # Save full user info
         self.ui.user_list.addItems([f"{u['first_name']} {u['last_name']}" for u in self.users])
-        #self.main_window_controller = self.ui.user_list.currentIndex()
         self.ui.user_list.currentIndexChanged.connect(self.update_session_list)
 
         self.ui.add_user_btn.clicked.connect(self.add_user)
@@ -53,6 +53,9 @@ class First_window_controller(QWidget):
 
     def open_main_window(self):
         self.main_window_controller.show()
+        self.signal = pyqtSignal(int)
+        self.main_window_controller.ui.user_label.setText(self.ui.user_list.currentText())
+        self.main_window_controller.user_id = self.ui.user_list.currentIndex() + 1
         
         if self.start_session_controller.isVisible() or self.isVisible():
             self.start_session_controller.close()

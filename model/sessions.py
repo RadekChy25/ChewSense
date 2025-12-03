@@ -21,12 +21,12 @@ class Session:
             print("Error adding session:", e)
             return None
         
-    def get_session_id(self, user_id: int, session_name: str):
+    def get_session_id(self, user_id: str, session_name: str):
         try:
-            response = supabase.table(Session.TABLE).select("*").eq("user_id", user_id).execute()
+            response = supabase.table(Session.TABLE).select("id").eq("user_id", user_id).eq("name", session_name).execute()
             print("Fetched session ID:", response)
             if response.data:
-                return response.data
+                return response.data[0]["id"]
             return None
         except Exception as e:
             print("Error fetching session ID:", e)

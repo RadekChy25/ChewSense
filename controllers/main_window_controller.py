@@ -15,6 +15,8 @@ class Main_window_controller(QMainWindow):
         self.seeduino = Mock_seeduino()
         self.session = Session()
 
+        self.user_id = 0
+
         self.data = self.seeduino.data
         x = [d[2] for d in self.data]  # sample_index
         y = [d[1] for d in self.data] 
@@ -64,7 +66,7 @@ class Main_window_controller(QMainWindow):
         x = [d[2] for d in self.data]  # sample_index
         y = [d[1] for d in self.data]  # adc_value
         self.line.setData(x, y)
+
         if len(self.seeduino.data) >= 50:
-            #self.seeduino.flush_data(self.session.get_session_id(self.user_id, self.ui.session_label.text()))
-            pass
+            self.seeduino.flush_data(self.session.get_session_id(self.user_id, self.ui.session_label.text()))
         print(len(self.seeduino.data))
