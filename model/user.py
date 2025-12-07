@@ -23,3 +23,10 @@ class User:
         except Exception as e:
             print("Error adding user:", e)
             return None
+        
+    def delete_user(self, user_id: int):
+        try:
+            supabase.table(User.TABLE).delete().eq("id", user_id).execute()
+        except Exception as e:
+            print("Error deleting user:", e)
+            return None

@@ -67,6 +67,6 @@ class Ui_session_create(object):
         _translate = QtCore.QCoreApplication.translate
         session_create.setWindowTitle(_translate("session_create", "Form"))
         self.start_session_btn.setText(_translate("session_create", "START NEW SESSION"))
-        self.session_nr_label.setText(_translate("session_create", "SESSION NUMBER"))
+        self.session_nr_label.setText(_translate("session_create", "SESSION NAME"))
 
 

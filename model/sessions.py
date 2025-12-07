@@ -31,3 +31,10 @@ class Session:
         except Exception as e:
             print("Error fetching session ID:", e)
             return None
+        
+    def delete_session(self, session_id: int):
+        try:
+            supabase.table(Session.TABLE).delete().eq("id", session_id).execute()
+        except Exception as e:
+            print("Error deleting session:", e)
+            return None
