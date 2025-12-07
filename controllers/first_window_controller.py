@@ -161,6 +161,8 @@ class First_window_controller(QWidget):
         self.session.add_session(user_id, session_name)
         self.sessions = self.session.get_sessions(user_id)
         self.update_session_list(index)
+        self.start_session_controller.ui.session_nr_input.clear()
+        self.start_session_controller.close()
 
         self.main_window_controller.ui.session_label.setText(session_name)
         self.open_main_window()
