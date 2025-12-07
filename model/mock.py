@@ -1,6 +1,7 @@
 from PyQt6.QtCore import QThread, pyqtSignal, QThreadPool
 from model.database import SaveSamplesWorker
 import time
+import random as rd
 
 class MockSeeduinoThread(QThread):
     new_sample = pyqtSignal(int, int, int)  # sample_index, adc_value, millis
@@ -16,11 +17,11 @@ class MockSeeduinoThread(QThread):
         millis = 0
         while not self._stop_flag:
             sample_index += 1
-            adc_value += 5
+            adc_value = rd.randint(0, 1023)
             millis += 100
-            self.new_sample.emit(sample_index, adc_value, millis)
-            time.sleep(0.1)  # simulate delay between samples
-            if time.time() - start_time >= 10:
+            self.new_sample.emit(sample_index, adc_value, millis) 
+            time.sleep(0.001)  # simulate delay
+            if time.time() - start_time >= 60:
                 break
 
     def stop(self):
@@ -30,7 +31,8 @@ class Mock_seeduino():
     def __init__(self):
         super().__init__()
         self.data = []
-        self.buffer_size = 200
+        self.buffer_size = 10000
+        self.window_size = 250
         self.serial_thread = MockSeeduinoThread()
         self.thread_pool = QThreadPool()
 
@@ -43,8 +45,8 @@ class Mock_seeduino():
         if not self.data:
             return
 
-        chunk = self.data
-        self.data = []  # free RAM
+        chunk = self.data  # free RAM
+        self.data = []
 
         payload = {
             "session_id": session_id,

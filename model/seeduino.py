@@ -1,7 +1,8 @@
 import serial
+import time
 import serial.tools.list_ports
-from PyQt6.QtCore import QThread, pyqtSignal
-from .database import supabase
+from model.database import SaveSamplesWorker
+from PyQt6.QtCore import QThread, pyqtSignal, QThreadPool
 
 class SerialReaderThread(QThread):
     new_sample = pyqtSignal(int, int, int)  # sample_index, adc_value, millis
@@ -12,9 +13,9 @@ class SerialReaderThread(QThread):
         self._stop_flag = False
         self.serial = None
         self.ports = port
-        self.stop()
 
     def run(self):
+        start_time = time.time()
         try:
             self.serial = serial.Serial(self.ports, self.baudrate, timeout=1)
             self.serial.flush()
@@ -32,6 +33,8 @@ class SerialReaderThread(QThread):
                         self.new_sample.emit(sample_index, adc_value, millis)
                 except ValueError:
                     continue  # just skip faulty lines
+                if time.time() - start_time >= 60:
+                    break
         except Exception as e:
             print("SerialReaderThread error:", e)
 
@@ -45,20 +48,14 @@ class SerialReaderThread(QThread):
 class Seeeduino():
     def __init__(self):
         super().__init__()
-
+        self.data = []
+        self.buffer_size = 200
         self.serial_thread = SerialReaderThread(self.detect_seeeduino_port())
         self.serial_thread.new_sample.connect(self.handle_emg_sample)
+        self.thread_pool = QThreadPool()
 
     def handle_emg_sample(self, sample_index, adc_value, millis):
         print(f"EMG: {sample_index}, {adc_value}, {millis} ms")
-        try:
-            data = supabase.table("emg_data").insert({
-                "sample_index": sample_index,
-                "adc_value": adc_value,
-                "millis": millis
-            }).execute()
-        except Exception as e:
-            print("Error inserting data into Supabase:", e)
     
 
     def closeEvent(self):
@@ -76,18 +73,34 @@ class Seeeduino():
                 or "wchusb" in desc
                 or port.vid == 0x1A86 and port.pid == 0x7523  # CH340G Driver detection
                 or port.vid == 0x10C4 and port.pid == 0xEA60  # CP2102 Driver detection
-                or port.vid == 0x2341  # from an official Arduino thingy
+                or port.vid == 0x2341  # from an official Arduino docs
             ):
                 seeeduino_ports.append(port.device)
 
-        #if not seeeduino_ports:
-            #raise IOError("sEMG not detected. Please check the USB connection.")
-       #elif len(seeeduino_ports) == 1:
-            #return seeeduino_ports[0]
-       # else:
-            #print("Multiple compatible ports found:")
-            #for i, p in enumerate(seeeduino_ports):
-            #    print(f"{i}: {p}")
-            #choice = int(input("Select port number: "))
-            #return seeeduino_ports[choice]
+        if not seeeduino_ports:
+            raise IOError("sEMG not detected. Please check the USB connection.")
+        elif len(seeeduino_ports) == 1:
+                return seeeduino_ports[0]
+        else:
+            print("Multiple compatible ports found:")
+            for i, p in enumerate(seeeduino_ports):
+                print(f"{i}: {p}")
+                choice = int(input("Select port number: "))
+            return seeeduino_ports[choice]
+        
+    def flush_data(self, session_id: str):
+        if not self.data:
+            return
+
+        chunk = self.data
+        self.data = []  # free RAM
+
+        payload = {
+            "session_id": session_id,
+            "adc_values": [d[1] for d in chunk],
+            "mili_seconds": [d[2] for d in chunk],
+        }
+
+        worker = SaveSamplesWorker(payload)
+        self.thread_pool.start(worker)
         
