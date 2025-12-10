@@ -3,3 +3,4 @@ supabase
 dotenv
 pyserial
 pyqtgraph
+csv

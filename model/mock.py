@@ -1,5 +1,5 @@
 from PyQt6.QtCore import QThread, pyqtSignal, QThreadPool
-from model.database import SaveSamplesWorker
+from model.emg import SaveSamplesWorker
 import time
 import random as rd
 
@@ -56,3 +56,4 @@ class Mock_seeduino():
 
         worker = SaveSamplesWorker(payload)
         self.thread_pool.start(worker)
+        print("Saved")

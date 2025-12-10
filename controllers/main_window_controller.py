@@ -1,9 +1,10 @@
+import csv
 from views.main_window import Ui_MainWindow
 from model.seeduino import Seeeduino
 from model.mock import Mock_seeduino
 from model.sessions import Session
 from PyQt6.QtWidgets import QMainWindow
-from PyQt6 import QtCore
+from PyQt6 import QtCore, QtWidgets
 
 class Main_window_controller(QMainWindow):
     def __init__(self):
@@ -58,6 +59,9 @@ class Main_window_controller(QMainWindow):
             self.ui.left_cheek_graph.show()
             self.ui.right_cheek_graph.show()
 
+        if button_name == self.ui.download_btn:
+            self.add_session_download()
+
     def connect_device(self):
         self.seeduino.serial_thread.start()
         self.ui.main_stackedWidget.setCurrentIndex(0)
@@ -77,6 +81,7 @@ class Main_window_controller(QMainWindow):
         self.data = self.seeduino.data
 
         if len(self.data) == self.seeduino.buffer_size:
+            print(f"Id {self.session.get_session_id(self.user_id, self.ui.session_label.text())}")
             self.seeduino.flush_data(self.session.get_session_id(self.user_id, self.ui.session_label.text()))
 
     def set_restricted_mode(self, restricted: bool):
@@ -94,3 +99,33 @@ class Main_window_controller(QMainWindow):
             self.ui.data_btn.setChecked(False)
             self.ui.download_btn.setChecked(False)
             self.ui.main_stackedWidget.setCurrentIndex(3)
+
+    def add_session_download(self):
+        sessions = self.session.get_sessions(self.user_id)
+        session_index = 0
+        if self.ui.main_stackedWidget.currentIndex() != 2:
+            return
+        for i in sessions:
+            session_index += 1
+            label = QtWidgets.QLabel(parent=self.ui.scrollAreaWidgetContents)
+            label.setText(i["name"])
+            button = QtWidgets.QPushButton(parent=self.ui.scrollAreaWidgetContents)
+            button.setText("Download the session")
+            button.clicked.connect(lambda _, sid=i["id"]: self.download_session(sid))
+            self.ui.gridLayout_4.addWidget(label, session_index, 0, 1, 1)
+            self.ui.gridLayout_4.addWidget(button, session_index, 2, 1, 1)
+
+    def download_session(self, session_id: int):
+        data = self.session.get_session_data(session_id)
+        if not data:
+            print("No data found for session ID:", session_id)
+            return
+        filename = f"session_{session_id}_data.csv"
+        try:
+            with open(filename, 'a') as file:
+                file.write("sample_index,adc_value,millis\n")
+                for sample in data:
+                    file.write(f"{sample['sample_index']},{sample['adc_value']},{sample['millis']}\n")
+            print(f"Session data saved to {filename}")
+        except Exception as e:
+            print("Error saving session data:", e)

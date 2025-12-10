@@ -1,7 +1,7 @@
 import serial
 import time
 import serial.tools.list_ports
-from model.database import SaveSamplesWorker
+from model.emg import SaveSamplesWorker
 from PyQt6.QtCore import QThread, pyqtSignal, QThreadPool
 
 class SerialReaderThread(QThread):
@@ -92,8 +92,8 @@ class Seeeduino():
         if not self.data:
             return
 
-        chunk = self.data
-        self.data = []  # free RAM
+        chunk = self.data  # free RAM
+        self.data = []
 
         payload = {
             "session_id": session_id,
@@ -103,4 +103,5 @@ class Seeeduino():
 
         worker = SaveSamplesWorker(payload)
         self.thread_pool.start(worker)
+        print(f"Saved, session id: {session_id}")
         
