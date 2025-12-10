@@ -5,6 +5,7 @@ from model.mock import Mock_seeduino
 from model.sessions import Session
 from PyQt6.QtWidgets import QMainWindow
 from PyQt6 import QtCore, QtWidgets
+from datetime import datetime
 
 class Main_window_controller(QMainWindow):
     def __init__(self):
@@ -14,7 +15,7 @@ class Main_window_controller(QMainWindow):
         self.ui.setupUi(self)
         self.restricted_mode = False
 
-        self.seeduino = Mock_seeduino()
+        self.seeduino = Seeeduino()
         self.session = Session()
 
         self.ui.connect_device_btn.clicked.connect(self.connect_device)
@@ -42,6 +43,10 @@ class Main_window_controller(QMainWindow):
         self.timer.setInterval(80) # Update every 80 ms
         self.timer.timeout.connect(self.update_plot)
         self.timer.start()
+        self.session_max_adc = None
+        self.session_end_millis = None
+
+    
 
     def nav_button_switching(self, button_name):
         buttons = {
@@ -58,6 +63,7 @@ class Main_window_controller(QMainWindow):
         if button_name == self.ui.home_btn:
             self.ui.left_cheek_graph.show()
             self.ui.right_cheek_graph.show()
+            self.update_home_summary()
 
         if button_name == self.ui.download_btn:
             self.add_session_download()
@@ -77,12 +83,29 @@ class Main_window_controller(QMainWindow):
         self.line.setData(self.x_data, self.y_data)
 
     def add_data_graph(self, sample_index, adc_value, millis):
+        print("add data '", sample_index, adc_value, millis)
         self.seeduino.data.append((sample_index, adc_value, millis))
         self.data = self.seeduino.data
+
+        if self.session_max_adc is None or adc_value > self.session_max_adc:
+            self.session_max_adc = adc_value
+        self.session_end_millis = millis
+        self.update_home_summary()
 
         if len(self.data) == self.seeduino.buffer_size:
             print(f"Id {self.session.get_session_id(self.user_id, self.ui.session_label.text())}")
             self.seeduino.flush_data(self.session.get_session_id(self.user_id, self.ui.session_label.text()))
+
+    def update_home_summary(self):
+        if self.session_max_adc is None or self.session_end_millis is None:
+            self.ui.highest_value.setText("N/A")
+            self.ui.time_value.setText("N/A")
+            return
+
+        self.ui.highest_value.setText(str(self.session_max_adc))
+        end_time = datetime.fromtimestamp(self.session_end_millis / 1000.0).strftime("%M:%S")
+        self.ui.time_value.setText(end_time)
+
 
     def set_restricted_mode(self, restricted: bool):
         self.restricted_mode = restricted
