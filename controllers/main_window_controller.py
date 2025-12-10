@@ -12,7 +12,6 @@ class Main_window_controller(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.restricted_mode = False
-        self.ui.main_stackedWidget.setCurrentIndex(3)
 
         self.seeduino = Mock_seeduino()
         self.session = Session()
@@ -88,10 +87,10 @@ class Main_window_controller(QMainWindow):
             self.ui.download_btn.setChecked(False)
             self.ui.data_btn.setChecked(True)
 
-            self.ui.main_stackedWidget.setCurrentIndex(2)
+            self.ui.main_stackedWidget.setCurrentIndex(1)
         else:
             self.ui.home_btn.show()
             self.ui.home_btn.setChecked(True)
             self.ui.data_btn.setChecked(False)
             self.ui.download_btn.setChecked(False)
-            self.ui.main_stackedWidget.setCurrentIndex(0)
+            self.ui.main_stackedWidget.setCurrentIndex(3)

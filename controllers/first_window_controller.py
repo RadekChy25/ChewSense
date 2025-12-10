@@ -92,7 +92,7 @@ class First_window_controller(QWidget):
             print("No user selected.")
             return
         user_id = self.users[user_index]["id"]
-        self.main_window_controller.user_id = str(user_id)
+        self.main_window_controller.user_id = int(user_id)
         self.main_window_controller.ui.user_label.setText(self.ui.user_list.currentText())
         self.main_window_controller.ui.session_label.setText(self.ui.session_list.currentText())
         session_index = self.ui.session_list.currentIndex()
@@ -127,8 +127,6 @@ class First_window_controller(QWidget):
             self.start_session_controller.close()
         if self.isVisible():
             self.close()
-         
-    
 
     def close_main_window(self):
         self.main_window_controller.close()
@@ -174,6 +172,7 @@ class First_window_controller(QWidget):
         self.ui.session_list.setCurrentIndex(index)
         self.start_session_controller.close()
         self.open_main_window()
+        self.main_window_controller.ui.session_label.setText(session_name)
 
     def open_delete_session_form(self):
         user_index = self.ui.user_list.currentIndex()
