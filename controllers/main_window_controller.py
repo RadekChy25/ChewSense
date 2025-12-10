@@ -11,6 +11,7 @@ class Main_window_controller(QMainWindow):
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.restricted_mode = False
         self.ui.main_stackedWidget.setCurrentIndex(4)
 
         self.seeduino = Mock_seeduino()
@@ -85,3 +86,21 @@ class Main_window_controller(QMainWindow):
 
         if len(self.data) == self.seeduino.buffer_size:
             self.seeduino.flush_data(self.session.get_session_id(self.user_id, self.ui.session_label.text()))
+
+    def set_restricted_mode(self, restricted: bool):
+        self.restricted_mode = restricted
+
+        if restricted:
+            self.ui.home_btn.hide()
+            self.ui.diagram_btn.hide()
+            self.ui.download_btn.setChecked(False)
+            self.ui.data_btn.setChecked(True)
+
+            self.ui.main_stackedWidget.setCurrentIndex(2)
+        else:
+            self.ui.home_btn.show()
+            self.ui.diagram_btn.show()
+            self.ui.home_btn.setChecked(True)
+            self.ui.data_btn.setChecked(False)
+            self.ui.download_btn.setChecked(False)
+            self.ui.main_stackedWidget.setCurrentIndex(0)

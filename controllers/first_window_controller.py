@@ -41,7 +41,7 @@ class First_window_controller(QWidget):
         self.ui.add_session_btn.clicked.connect(self.add_session)
         self.ui.delete_user_btn.clicked.connect(self.open_delete_user_form)
         self.ui.delete_session_btn.clicked.connect(self.open_delete_session_form)
-        self.ui.go_to_main.clicked.connect(self.open_main_window)
+        self.ui.go_to_main.clicked.connect(self.open_main_window_restricted)
 
 
         self.main_window_controller.ui.exit_btn.clicked.connect(self.close_main_window)
@@ -86,7 +86,7 @@ class First_window_controller(QWidget):
         self.delete_user_form_controller.on_delete =self.refresh_user_list
         self.delete_user_form_controller.show()
 
-    def open_main_window(self):
+    def open_main_window_restricted(self):
         user_index = self.ui.user_list.currentIndex()
         if user_index < 0 or user_index >= len(self.users):
             print("No user selected.")
@@ -102,6 +102,25 @@ class First_window_controller(QWidget):
             self.main_window_controller.ui.session_label.setText(session_name)
         else:
             self.main_window_controller.ui.session_label.setText("No session selected")
+        self.main_window_controller.set_restricted_mode(True)
+        self.main_window_controller.show()
+        if self.start_session_controller.isVisible():
+            self.start_session_controller.close()
+        if self.isVisible():
+            self.close()
+
+    def open_main_window(self):
+        self.main_window_controller.user_id = self.users[self.ui.user_list.currentIndex()]["id"]
+        self.main_window_controller.ui.user_label.setText(self.ui.user_list.currentText())
+        session_index = self.ui.session_list.currentIndex()
+        if session_index >= 0 and session_index < len(self.sessions):
+            session_id = self.sessions[session_index]["id"]
+            session_name = self.sessions[session_index]["name"]
+            self.main_window_controller.session_id = session_id
+            self.main_window_controller.ui.session_label.setText(session_name)
+        else:
+            self.main_window_controller.ui.session_label.setText("No session selected")
+        self.main_window_controller.set_restricted_mode(False)
         self.main_window_controller.show()
         if self.start_session_controller.isVisible():
             self.start_session_controller.close()
@@ -165,6 +184,7 @@ class First_window_controller(QWidget):
         self.start_session_controller.close()
 
         self.main_window_controller.ui.session_label.setText(session_name)
+        self.main_window_controller.set_restricted_mode(False)
         self.open_main_window()
 
     def open_delete_session_form(self):
