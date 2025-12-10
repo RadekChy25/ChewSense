@@ -85,14 +85,12 @@ class Main_window_controller(QMainWindow):
 
         if restricted:
             self.ui.home_btn.hide()
-            self.ui.diagram_btn.hide()
             self.ui.download_btn.setChecked(False)
             self.ui.data_btn.setChecked(True)
 
             self.ui.main_stackedWidget.setCurrentIndex(2)
         else:
             self.ui.home_btn.show()
-            self.ui.diagram_btn.show()
             self.ui.home_btn.setChecked(True)
             self.ui.data_btn.setChecked(False)
             self.ui.download_btn.setChecked(False)
