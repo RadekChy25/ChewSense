@@ -1,6 +1,26 @@
 <RCC>
   <qresource prefix="icons">
     <file>../Edit_duotone_line@3x.png</file>
+    <file>views/icons/User_light@4x.png</file>
+    <file>views/icons/User_light@3x.png</file>
+    <file>views/icons/user_icon.png</file>
+    <file>views/icons/user2_icon.png</file>
+    <file>views/icons/Trash_light-2.png</file>
+    <file>views/icons/trash_icon.png</file>
+    <file>views/icons/Trash@3x.png</file>
+    <file>views/icons/plus_icon.png</file>
+    <file>views/icons/pen_icon.png</file>
+    <file>views/icons/house_icon.png</file>
+    <file>views/icons/house_checked_icon.png</file>
+    <file>views/icons/exit_icon.png</file>
+    <file>views/icons/Edit_duotone_line@3x.png</file>
+    <file>views/icons/download_icon.png</file>
+    <file>views/icons/download_checked_icon.png</file>
+    <file>views/icons/dlugopis_icon.png</file>
+    <file>views/icons/diagram_icon.png</file>
+    <file>views/icons/diagram_checked_icon.png</file>
+    <file>views/icons/data_icon.png</file>
+    <file>views/icons/data_checked_icon.png</file>
     <file>../User_light@3x.png</file>
     <file>../Trash_light-2.png</file>
     <file>views/icons/house_checked_icon.png</file>
