@@ -92,8 +92,9 @@ class First_window_controller(QWidget):
             print("No user selected.")
             return
         user_id = self.users[user_index]["id"]
-        self.main_window_controller.user_id = user_id
+        self.main_window_controller.user_id = str(user_id)
         self.main_window_controller.ui.user_label.setText(self.ui.user_list.currentText())
+        self.main_window_controller.ui.session_label.setText(self.ui.session_list.currentText())
         session_index = self.ui.session_list.currentIndex()
         if session_index >= 0 and session_index < len(self.sessions):
             session_id = self.sessions[session_index]["id"]
@@ -163,28 +164,15 @@ class First_window_controller(QWidget):
             return
         user_id = self.users[index]["id"]
         session_name = self.start_session_controller.ui.session_nr_input.text()
-        #selected_user_index = self.ui.user_list.currentIndex() + 1
-        #if selected_user_index < 0 or selected_user_index >= len(self.users):
-            #print("No user selected.")
-            #return
-        #self.session.add_session(selected_user_index, session_name)
-        #index = self.ui.user_list.currentIndex()
-        #if index < 0 or index >= len(self.users):
-            #print("No user selected.")
-            #return
 
-        #user_id = self.users[index]["id"]
         if not session_name:
             print("Session name cannot be empty.")
             return
         self.session.add_session(user_id, session_name)
         self.sessions = self.session.get_sessions(user_id)
         self.update_session_list(index)
-        self.start_session_controller.ui.session_nr_input.clear()
+        self.ui.session_list.setCurrentIndex(index)
         self.start_session_controller.close()
-
-        self.main_window_controller.ui.session_label.setText(session_name)
-        self.main_window_controller.set_restricted_mode(False)
         self.open_main_window()
 
     def open_delete_session_form(self):

@@ -12,7 +12,7 @@ class Main_window_controller(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.restricted_mode = False
-        self.ui.main_stackedWidget.setCurrentIndex(4)
+        self.ui.main_stackedWidget.setCurrentIndex(3)
 
         self.seeduino = Mock_seeduino()
         self.session = Session()
@@ -27,18 +27,14 @@ class Main_window_controller(QMainWindow):
         self.y_data = [0] * self.seeduino.window_size  # Y axis data
         self.last_saved_index = 0
 
-        self.line = self.ui.left_cheek_high_graph.plot(self.x_data, self.y_data)
-        self.ui.left_cheek_high_graph.setYRange(0, 1023)
+        self.line = self.ui.left_cheek_graph.plot(self.x_data, self.y_data)
+        self.ui.left_cheek_graph.setYRange(0, 1023)
 
 
         # self.ui.left_cheek_high_graph.plot(self.data_x, self.data_y)
-        self.ui.left_cheek_low_graph.plot([1,2,3,4,5,6,7,8,9], [5,10,15,20,25,30,35,40,45])
-
-        self.ui.right_cheek_high_graph.plot([1,2,3,4,5,6,7,8,9], [5,10,15,20,25,30,35,40,45])
-        self.ui.right_cheek_low_graph.plot([1,2,3,4,5,6,7,8,9], [5,10,15,20,25,30,35,40,45])
+        self.ui.right_cheek_graph.plot([1,2,3,4,5,6,7,8,9], [5,10,15,20,25,30,35,40,45])
 
         self.ui.home_btn.clicked.connect(lambda: self.nav_button_switching(self.ui.home_btn))
-        self.ui.diagram_btn.clicked.connect(lambda: self.nav_button_switching(self.ui.diagram_btn))
         self.ui.data_btn.clicked.connect(lambda: self.nav_button_switching(self.ui.data_btn))
         self.ui.download_btn.clicked.connect(lambda: self.nav_button_switching(self.ui.download_btn))
         
@@ -50,9 +46,8 @@ class Main_window_controller(QMainWindow):
     def nav_button_switching(self, button_name):
         buttons = {
             self.ui.home_btn: 0,
-            self.ui.diagram_btn: 1,
-            self.ui.data_btn: 2,
-            self.ui.download_btn: 3
+            self.ui.data_btn: 1,
+            self.ui.download_btn: 2
         }
 
         self.ui.main_stackedWidget.setCurrentIndex(buttons[button_name])
@@ -61,10 +56,8 @@ class Main_window_controller(QMainWindow):
             btn.setChecked(btn is button_name)
 
         if button_name == self.ui.home_btn:
-            self.ui.left_cheek_high_graph.show()
-            self.ui.left_cheek_low_graph.show()
-            # self.ui.right_cheek_high_graph.show()
-            self.ui.right_cheek_low_graph.show()
+            self.ui.left_cheek_graph.show()
+            self.ui.right_cheek_graph.show()
 
     def connect_device(self):
         self.seeduino.serial_thread.start()

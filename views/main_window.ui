@@ -34,24 +34,12 @@
     <item row="2" column="0">
      <widget class="QStackedWidget" name="main_stackedWidget">
       <property name="currentIndex">
-       <number>4</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="home_page_widget">
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout">
-          <item row="0" column="0">
-           <widget class="QWidget" name="left_cheek_high_graph" native="true"/>
-          </item>
-          <item row="0" column="1">
-           <widget class="QWidget" name="right_cheek_high_graph" native="true"/>
-          </item>
-          <item row="1" column="0">
-           <widget class="QWidget" name="left_cheek_low_graph" native="true"/>
-          </item>
-          <item row="1" column="1">
-           <widget class="QWidget" name="right_cheek_low_graph" native="true"/>
-          </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label">
             <property name="maximumSize">
@@ -61,25 +49,12 @@
              </size>
             </property>
             <property name="text">
-             <string>TextLabel</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>48</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>TextLabel</string>
+             <string>Summary</string>
             </property>
            </widget>
           </item>
           <item row="4" column="0">
-           <widget class="QLabel" name="label_3">
+           <widget class="QLabel" name="time_label">
             <property name="maximumSize">
              <size>
               <width>16777215</width>
@@ -87,29 +62,42 @@
              </size>
             </property>
             <property name="text">
+             <string>Time of the session:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="highest_label">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>48</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Highest Value: </string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="highest_value">
+            <property name="text">
              <string>TextLabel</string>
             </property>
            </widget>
           </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="diagram_page_widget">
-       <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="0">
-         <layout class="QGridLayout" name="gridLayout_4">
-          <item row="0" column="0">
-           <widget class="QWidget" name="widget" native="true"/>
+          <item row="0" column="0" colspan="2">
+           <widget class="QWidget" name="left_cheek_graph" native="true"/>
           </item>
-          <item row="0" column="1">
-           <widget class="QWidget" name="widget_2" native="true"/>
+          <item row="1" column="0" colspan="2">
+           <widget class="QWidget" name="right_cheek_graph" native="true"/>
           </item>
-          <item row="1" column="0">
-           <widget class="QWidget" name="widget_3" native="true"/>
-          </item>
-          <item row="1" column="1">
-           <widget class="QWidget" name="widget_4" native="true"/>
+          <item row="4" column="1">
+           <widget class="QLabel" name="time_value">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -242,117 +230,54 @@
       <widget class="QWidget" name="page">
        <layout class="QGridLayout" name="gridLayout_9">
         <item row="0" column="0">
-         <layout class="QGridLayout" name="gridLayout_8">
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_11">
-            <property name="font">
-             <font>
-              <pointsize>15</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>Session</string>
-            </property>
-            <property name="margin">
-             <number>8</number>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="pushButton_2">
-            <property name="font">
-             <font>
-              <pointsize>15</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(255,255,255) ;color: rgb(0,0,0)</string>
-            </property>
-            <property name="text">
-             <string>Download as CSV</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_12">
-            <property name="font">
-             <font>
-              <pointsize>15</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>Session</string>
-            </property>
-            <property name="margin">
-             <number>8</number>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_10">
-            <property name="font">
-             <font>
-              <pointsize>15</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>Session</string>
-            </property>
-            <property name="margin">
-             <number>8</number>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QPushButton" name="pushButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>15</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(255,255,255) ;color: rgb(0,0,0)</string>
-            </property>
-            <property name="text">
-             <string>Download all as CSV</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QPushButton" name="pushButton_3">
-            <property name="font">
-             <font>
-              <pointsize>15</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(255,255,255) ;color: rgb(0,0,0)</string>
-            </property>
-            <property name="text">
-             <string>Download as CSV</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0" colspan="2">
-           <spacer name="verticalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
+         <widget class="QScrollArea" name="scrollArea">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>859</width>
+             <height>503</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <layout class="QGridLayout" name="gridLayout_4">
+              <item row="0" column="0">
+               <widget class="QLabel" name="all_sessions_label">
+                <property name="text">
+                 <string>All Sessions</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QPushButton" name="download_all_button">
+                <property name="text">
+                 <string>Download all sessions as CSV</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <spacer name="session_devider">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -434,7 +359,7 @@
            </spacer>
           </item>
           <item row="2" column="1" colspan="2">
-           <widget class="QLabel" name="label_13">
+           <widget class="QLabel" name="error_message">
             <property name="layoutDirection">
              <enum>Qt::LeftToRight</enum>
             </property>
@@ -469,7 +394,7 @@
          <property name="horizontalSpacing">
           <number>30</number>
          </property>
-         <item row="1" column="6">
+         <item row="1" column="5">
           <widget class="QPushButton" name="data_btn">
            <property name="autoFillBackground">
             <bool>false</bool>
@@ -509,7 +434,7 @@
            </property>
            <property name="icon">
             <iconset resource="../resources.qrc">
-             <normaloff>:/icons/User_light@4x.png</normaloff>:/icons/User_light@4x.png</iconset>
+             <normaloff>:/icons/views/icons/User_light@4x.png</normaloff>:/icons/views/icons/User_light@4x.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -532,33 +457,6 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="5">
-          <widget class="QPushButton" name="diagram_btn">
-           <property name="autoFillBackground">
-            <bool>false</bool>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">border:0;</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="../resources.qrc">
-             <normaloff>:/icons/views/icons/diagram_icon.png</normaloff>
-             <normalon>:/icons/views/icons/diagram_checked_icon.png</normalon>:/icons/views/icons/diagram_icon.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>50</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
          <item row="1" column="2">
           <spacer name="horizontalSpacer">
            <property name="orientation">
@@ -572,37 +470,7 @@
            </property>
           </spacer>
          </item>
-         <item row="1" column="4">
-          <widget class="QPushButton" name="home_btn">
-           <property name="autoFillBackground">
-            <bool>false</bool>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">border:0;</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="../resources.qrc">
-             <normaloff>:/icons/views/icons/house_icon.png</normaloff>
-             <normalon>:/icons/views/icons/house_checked_icon.png</normalon>:/icons/views/icons/house_icon.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>50</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="7">
+         <item row="1" column="6">
           <widget class="QPushButton" name="download_btn">
            <property name="autoFillBackground">
             <bool>false</bool>
@@ -629,7 +497,20 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="8">
+         <item row="1" column="1">
+          <widget class="QLabel" name="user_label">
+           <property name="minimumSize">
+            <size>
+             <width>83</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>user_label</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="7">
           <widget class="QPushButton" name="exit_btn">
            <property name="minimumSize">
             <size>
@@ -658,16 +539,33 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QLabel" name="user_label">
-           <property name="minimumSize">
-            <size>
-             <width>83</width>
-             <height>0</height>
-            </size>
+         <item row="1" column="4">
+          <widget class="QPushButton" name="home_btn">
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">border:0;</string>
            </property>
            <property name="text">
-            <string>user_label</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../resources.qrc">
+             <normaloff>:/icons/views/icons/house_icon.png</normaloff>
+             <normalon>:/icons/views/icons/house_checked_icon.png</normalon>:/icons/views/icons/house_icon.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>50</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
