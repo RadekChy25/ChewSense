@@ -56,4 +56,4 @@ class Mock_seeduino():
 
         worker = SaveSamplesWorker(payload)
         self.thread_pool.start(worker)
-        print("Saved")
+        print("Saved ")

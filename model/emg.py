@@ -11,7 +11,6 @@ class EMG(QRunnable):
         except Exception as e:
             print("Error fetching EMG data:", e)
             return []
-
     
 class SaveSamplesWorker(QRunnable):
     def __init__(self, payload):

@@ -1,9 +1,10 @@
-import csv
+import pandas as pd
 from views.main_window import Ui_MainWindow
 from model.seeduino import Seeeduino
 from model.mock import Mock_seeduino
 from model.sessions import Session
-from PyQt6.QtWidgets import QMainWindow
+from model.emg import EMG
+from PyQt6.QtWidgets import QMainWindow, QFileDialog
 from PyQt6 import QtCore, QtWidgets
 
 class Main_window_controller(QMainWindow):
@@ -16,6 +17,7 @@ class Main_window_controller(QMainWindow):
 
         self.seeduino = Mock_seeduino()
         self.session = Session()
+        self.emg = EMG()
 
         self.ui.connect_device_btn.clicked.connect(self.connect_device)
 
@@ -111,21 +113,85 @@ class Main_window_controller(QMainWindow):
             label.setText(i["name"])
             button = QtWidgets.QPushButton(parent=self.ui.scrollAreaWidgetContents)
             button.setText("Download the session")
-            button.clicked.connect(lambda _, sid=i["id"]: self.download_session(sid))
+            button.clicked.connect(lambda _, sid=i["id"], sname=i["name"]: self.download_session(sid, sname))
             self.ui.gridLayout_4.addWidget(label, session_index, 0, 1, 1)
             self.ui.gridLayout_4.addWidget(button, session_index, 2, 1, 1)
 
-    def download_session(self, session_id: int):
-        data = self.session.get_session_data(session_id)
-        if not data:
-            print("No data found for session ID:", session_id)
+        self.ui.download_all_button.clicked.connect(self.download_all_sessions)
+
+    def save_emg_to_csv(self, emg_data, session_name):
+        rows = []
+
+        rows.append({
+            "session_name": session_name,
+            "mili_seconds": "",
+            "adc_value": ""
+        })
+
+        for d in emg_data:
+            for t, val in zip(d["mili_seconds"], d["adc_values"]):
+                rows.append({
+                    "session_name": "",
+                    "mili_seconds": t,
+                    "adc_value": val
+                })
+
+        return rows
+
+    def download_session(self, session_id: int, session_name: str):
+        emg_data = self.emg.get_emg_data(session_id)
+
+        file_path, _ = QFileDialog.getSaveFileName(
+            self.ui.main_stackedWidget,
+            "Save CSV",
+            f"{session_name}.csv",  # default filename
+            "CSV Files (*.csv);;All Files (*)"
+        )
+
+        data = pd.DataFrame(self.save_emg_to_csv(emg_data, session_name))
+
+        if not file_path:
+            data.to_csv(file_path, mode='w', index=False, header=True)
+        else:
+            data.to_csv(file_path, mode='a', index=False, header=False)
+
+
+    def download_all_sessions(self):
+        sessions = self.session.get_sessions(self.user_id)
+        if not sessions:
             return
-        filename = f"session_{session_id}_data.csv"
-        try:
-            with open(filename, 'a') as file:
-                file.write("sample_index,adc_value,millis\n")
-                for sample in data:
-                    file.write(f"{sample['sample_index']},{sample['adc_value']},{sample['millis']}\n")
-            print(f"Session data saved to {filename}")
-        except Exception as e:
-            print("Error saving session data:", e)
+
+        file_path, _ = QFileDialog.getSaveFileName(
+            self.ui.main_stackedWidget,
+            "Save all sessions CSV",
+            "all_sessions.csv",
+            "CSV Files (*.csv);;All Files (*)"
+        )
+
+        if not file_path:
+            return
+
+        combined_data = {} 
+
+        for s in sessions:
+            emg_data = self.emg.get_emg_data(s["id"])
+            for d in emg_data:
+                max_len = max(max_len, len(d["mili_seconds"]))
+
+        # Initialize combined_data with mili_seconds (0..max_len-1)
+        combined_data["mili_seconds"] = list(range(max_len))
+
+        # Add each session as side-by-side columns
+        for s in sessions:
+            emg_data = self.emg.get_emg_data(s["id"])
+            col_name = f"{s['name']}_adc_values"
+            adc_values = []
+
+
+            combined_data[col_name] = adc_values
+
+        # Create DataFrame and save CSV
+        df = pd.DataFrame(combined_data)
+        df.to_csv(file_path, index=False)
+        print(f"All sessions saved side by side in {file_path}")
+

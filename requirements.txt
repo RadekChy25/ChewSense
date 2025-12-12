@@ -3,4 +3,4 @@ supabase
 dotenv
 pyserial
 pyqtgraph
-csv
+pandas
