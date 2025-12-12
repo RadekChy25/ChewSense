@@ -6,6 +6,7 @@ from model.sessions import Session
 from model.emg import EMG
 from PyQt6.QtWidgets import QMainWindow, QFileDialog
 from PyQt6 import QtCore, QtWidgets
+from datetime import datetime
 
 class Main_window_controller(QMainWindow):
     def __init__(self):
@@ -44,6 +45,10 @@ class Main_window_controller(QMainWindow):
         self.timer.setInterval(80) # Update every 80 ms
         self.timer.timeout.connect(self.update_plot)
         self.timer.start()
+        self.session_max_adc = None
+        self.session_end_millis = None
+
+    
 
     def nav_button_switching(self, button_name):
         buttons = {
@@ -60,6 +65,9 @@ class Main_window_controller(QMainWindow):
         if button_name == self.ui.home_btn:
             self.ui.left_cheek_graph.show()
             self.ui.right_cheek_graph.show()
+            self.update_home_summary()
+        if button_name == self.ui.data_btn:
+            self.update_data_stats()
 
         if button_name == self.ui.download_btn:
             self.add_session_download()
@@ -79,14 +87,33 @@ class Main_window_controller(QMainWindow):
         self.line.setData(self.x_data, self.y_data)
 
     def add_data_graph(self, sample_index, adc_value, millis):
+        print("add data '", sample_index, adc_value, millis)
         self.seeduino.data.append((sample_index, adc_value, millis))
         self.data = self.seeduino.data
 
+        if self.session_max_adc is None or adc_value > self.session_max_adc:
+            self.session_max_adc = adc_value
+        self.session_end_millis = millis
+        self.update_home_summary()
+
+        if self.ui.main_stackedWidget.currentIndex() == 1:
+            self.update_data_stats()
+
         if len(self.data) == self.seeduino.buffer_size:
-            print(f"Id {self.session.get_session_id(self.user_id, self.ui.session_label.text())}")
             self.seeduino.flush_data(self.session.get_session_id(self.user_id, self.ui.session_label.text()))
 
-    def set_restricted_mode(self, restricted: bool):
+    def update_home_summary(self):
+        if self.session_max_adc is None or self.session_end_millis is None:
+            self.ui.highest_value.setText("N/A")
+            self.ui.time_value.setText("N/A")
+            return
+
+        self.ui.highest_value.setText(str(self.session_max_adc))
+        end_time = datetime.fromtimestamp(self.session_end_millis / 1000.0).strftime("%M:%S")
+        self.ui.time_value.setText(end_time)
+
+
+    def set_restricted_mode(self, restricted: bool, session_id: int | None = None):
         self.restricted_mode = restricted
 
         if restricted:
@@ -95,6 +122,21 @@ class Main_window_controller(QMainWindow):
             self.ui.data_btn.setChecked(True)
 
             self.ui.main_stackedWidget.setCurrentIndex(1)
+            if session_id is not None:
+                data = self.session.get_session_data(session_id)   # list of dicts
+                # convert to same format as live mode: (sample_index, adc_value, millis)
+                self.data = [
+                    (s["sample_index"], s["adc_value"], s["millis"]) for s in data
+                ]
+                # recompute stats for this stored session
+                if self.data:
+                    self.session_max_adc = max(s[1] for s in self.data)
+                    self.session_end_millis = self.data[-1][2]
+                else:
+                    self.session_max_adc = None
+                    self.session_end_millis = None
+
+                self.update_data_stats()
         else:
             self.ui.home_btn.show()
             self.ui.home_btn.setChecked(True)
@@ -195,3 +237,32 @@ class Main_window_controller(QMainWindow):
         df.to_csv(file_path, index=False)
         print(f"All sessions saved side by side in {file_path}")
 
+
+    def count_peaks(self, data, threshold=100, min_distance = 5):
+        if len(data) < min_distance * 2:
+            return 0
+        peaks = 0
+        last_peak_index = -min_distance
+        for i in range(1, len(data) - 1):
+            curr = data[i][1]
+            prev = data[i - 1][1]
+            next = data[i + 1][1]
+            if curr > threshold and curr > prev and curr > next and i - last_peak_index >= min_distance:
+                peaks += 1
+                last_peak_index = i
+        return peaks
+    
+    def update_data_stats(self):
+        if not self.data:
+            self.ui.label_7.setText("N/A")
+            self.ui.label_8.setText("N/A")
+            self.ui.label_9.setText("N/A")
+            return
+        max_adc = max(sample[1] for sample in self.data)
+        self.ui.label_7.setText(str(max_adc))
+
+        avg_adc = sum(sample[1] for sample in self.data) / len(self.data)
+        self.ui.label_8.setText(f"{avg_adc:.1f}")
+
+        peak_count = self.count_peaks(self.data)
+        self.ui.label_9.setText(str(peak_count))

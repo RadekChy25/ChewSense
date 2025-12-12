@@ -49,7 +49,8 @@ class Seeeduino():
     def __init__(self):
         super().__init__()
         self.data = []
-        self.buffer_size = 200
+        self.buffer_size = 10000
+        self.window_size = 250
         self.serial_thread = SerialReaderThread(self.detect_seeeduino_port())
         self.serial_thread.new_sample.connect(self.handle_emg_sample)
         self.thread_pool = QThreadPool()
