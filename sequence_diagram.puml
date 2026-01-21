@@ -1,0 +1,21 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Sequence.puml
+
+actor Electrodes as patient
+actor Researcher as researcher
+participant "Seeeduino" as sensor_module
+participant "Views (PyQt6)" as views
+participant "Controllers (Python)" as controllers
+participant "Models (Python)" as models
+database "Database (Supabase)" as database
+
+patient -> sensor_module: collect sEMG data
+sensor_module -> controllers: send collected sEMG data
+researcher -> views: interact with UI
+views -> controllers: send user actions
+controllers -> models: access and update data
+models -> database: store and retrieve data
+controllers -> views: update UI
+
+@enduml

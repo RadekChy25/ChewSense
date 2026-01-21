@@ -1,0 +1,33 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(researcher, "Researcher", "Conducts experiments and collects data using the application and hardware.")
+Person(patient, "Patient", "electrodes are connected to the patient to collect physiological data.")
+
+System_Boundary(app, "Desktop Application", "PyQt6 application") {
+    Container(views, "Views", "PyQt6", "Handles the user interface components")
+    Container(controllers, "Controllers", "Python", "Manages the application logic and user interactions")
+    Container(models, "Models", "Python", "Represents the data structures and business logic")
+}
+
+System_Boundary(seeeduino, "Seeeduino", "Microcontroller") {
+    Container(sensor_module, "Sensor Module", "C/C++", "Collects sEMG data")
+}
+
+System_Boundary(electrodes, "Electrodes", "Electrodes, put on the jaw"){
+    Container(signal, "Electrodes", "Reads the muscle's e;ectrical signals")
+}
+
+SystemDb(database, "Database", "Supabase", "Stores collected data and user information.")
+
+researcher --> views: "Interacts with"
+patient --> signal: "sEMG data collection"
+signal --> sensor_module: "Reading the signals"
+views --> controllers: "Sends user actions to"
+controllers --> views: "Updates the UI"
+controllers --> models: "Accesses and updates data in"
+models --> database: "Stores and retrieves data from"
+sensor_module --> controllers: "Sends collected sEMG data to"
+
+@enduml

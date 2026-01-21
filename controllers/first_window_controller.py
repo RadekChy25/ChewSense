@@ -131,6 +131,12 @@ class First_window_controller(QWidget):
     def close_main_window(self):
         self.main_window_controller.close()
         self.main_window_controller.seeduino.serial_thread.stop()
+        layout = self.main_window_controller.ui.gridLayout_4
+        while layout.count():
+            item = layout.takeAt(0)
+            widget = item.widget()
+            if widget is not None:
+                widget.deleteLater()
         self.show()
 
     def create_user(self):

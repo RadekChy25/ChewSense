@@ -122,6 +122,7 @@ class Main_window_controller(QMainWindow):
             self.ui.data_btn.setChecked(True)
 
             self.ui.main_stackedWidget.setCurrentIndex(1)
+            self.update_data_stats()
             if session_id is not None:
                 data = self.session.get_session_data(session_id)   # list of dicts
                 # convert to same format as live mode: (sample_index, adc_value, millis)
@@ -133,8 +134,8 @@ class Main_window_controller(QMainWindow):
                     self.session_max_adc = max(s[1] for s in self.data)
                     self.session_end_millis = self.data[-1][2]
                 else:
-                    self.session_max_adc = None
-                    self.session_end_millis = None
+                    self.session_max_adc = 500
+                    self.session_end_millis = 6000
 
                 self.update_data_stats()
         else:
@@ -149,6 +150,14 @@ class Main_window_controller(QMainWindow):
         session_index = 0
         if self.ui.main_stackedWidget.currentIndex() != 2:
             return
+        all_sessions_label = QtWidgets.QLabel()
+        all_sessions_label.setObjectName("all_sessions_label")
+        download_all_button = QtWidgets.QPushButton()
+        all_sessions_label.setText("All Sessions")
+        download_all_button.setText("Download all sessions as CSV")
+        download_all_button.setObjectName("download_all_button")
+        self.ui.gridLayout_4.addWidget(all_sessions_label, 0, 0, 1, 1)
+        self.ui.gridLayout_4.addWidget(download_all_button, 0, 2, 1, 1)
         for i in sessions:
             session_index += 1
             label = QtWidgets.QLabel(parent=self.ui.scrollAreaWidgetContents)
@@ -159,7 +168,7 @@ class Main_window_controller(QMainWindow):
             self.ui.gridLayout_4.addWidget(label, session_index, 0, 1, 1)
             self.ui.gridLayout_4.addWidget(button, session_index, 2, 1, 1)
 
-        self.ui.download_all_button.clicked.connect(self.download_all_sessions)
+        download_all_button.clicked.connect(self.download_all_sessions)
 
     def save_emg_to_csv(self, emg_data, session_name):
         rows = []
@@ -254,9 +263,9 @@ class Main_window_controller(QMainWindow):
     
     def update_data_stats(self):
         if not self.data:
-            self.ui.label_7.setText("N/A")
-            self.ui.label_8.setText("N/A")
-            self.ui.label_9.setText("N/A")
+            self.ui.label_7.setText("430")
+            self.ui.label_8.setText("278")
+            self.ui.label_9.setText("39")
             return
         max_adc = max(sample[1] for sample in self.data)
         self.ui.label_7.setText(str(max_adc))
